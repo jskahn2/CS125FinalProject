@@ -1,14 +1,13 @@
 import java.util.ArrayList;
-import java.io.*; 
+import java.io.*;
 import java.util.Scanner;
 /**
  * Generates an "indie band name" using files of nouns, verbs, and adjectives.
  *
- * @author Jordan Kahn
+ * @author Jordan Kahn, Isha Kukadia
  * @version 1
  */
-public class Generator
-{
+public class Generator {
     // instance variables - replace the example below with your own
     //private String[] adjs = "Quiet", "Loud", "Tame", "Static", "Ridiculous";
     /**
@@ -36,20 +35,18 @@ public class Generator
      * @param is whether the generator is using adjectives
      * @throws IOException if fails
      */
-    public Generator(boolean is) throws IOException
-    {
+    public Generator(boolean is) throws IOException {
         adjs = new ArrayList<String>();
         nouns = new ArrayList<String>();
         isAdj = is;
-        if (isAdj == true) {
+        if isAdj {
             readAdjFiles();
-        }
-        else {
+        } else {
             readVerbFiles();
         }
         readNounFiles();
     }
-    
+
     /**
      * Constructor for the generator for specified nouns and syllables.
      * @param adj the number of syllables of adjectives / verbs
@@ -57,39 +54,26 @@ public class Generator
      * @param is whether the generator is using adjectives
      * @throws IOException if fails
      */
-    public Generator(int adj, int noun, boolean is) throws IOException
-    {
+    public Generator(int adj, int noun, boolean is) throws IOException {
         adjs = new ArrayList<String>();
         nouns = new ArrayList<String>();
         isAdj = is;
-        if (isAdj == true)
-        {
-            if (adj < 1 || adj > 4)
-            {
+        if isAdj {
+            if (adj < 1 || adj > 4) {
                 readAdjFiles();
-            }
-            else
-            {
+            } else {
                 readAdjFiles(adj);
             }
-        }
-        else
-        {
-            if (adj < 1 || adj > 4)
-            {
+        } else {
+            if (adj < 1 || adj > 4) {
                 readVerbFiles();
-            }
-            else
-            {
+            } else {
                 readVerbFiles(adj);
             }
         }
-        if (noun < 1 || noun > 4)
-        {
+        if (noun < 1 || noun > 4) {
             readNounFiles();
-        }
-        else
-        {
+        } else {
             readNounFiles(noun);
         }
     }
@@ -98,13 +82,10 @@ public class Generator
      * Reads in all of the adjective files.
      * @throws IOException if fails
      */
-    public void readAdjFiles() throws IOException
-    {
-        for (int i = 1; i < 5; i++)
-        {
+    public void readAdjFiles() throws IOException {
+        for (int i = 1; i < 5; i++) {
             Scanner fileScan = new Scanner(new File("resources/" + i + "syllableadjectives.txt"));
-            while(fileScan.hasNextLine())
-            {
+            while(fileScan.hasNextLine()) {
                 adjs.add(fileScan.nextLine());
             }
         }
@@ -114,13 +95,10 @@ public class Generator
      * Reads in all of the noun files.
      * @throws IOException
      */
-    public void readNounFiles() throws IOException
-    {
-        for (int i = 1; i < 5; i++)
-        {
+    public void readNounFiles() throws IOException {
+        for (int i = 1; i < 5; i++) {
             Scanner fileScan2 = new Scanner(new File("resources/" + i + "syllablenouns.txt"));
-            while(fileScan2.hasNextLine())
-            {
+            while(fileScan2.hasNextLine()) {
                 nouns.add(fileScan2.nextLine());
             }
         }
@@ -131,11 +109,9 @@ public class Generator
      * @param numadjs number of syllables for the adjective
      * @throws IOException
      */
-    public void readAdjFiles(int numadjs) throws IOException
-    {
+    public void readAdjFiles(int numadjs) throws IOException {
         Scanner fileScan = new Scanner(new File("resources/" + numadjs + "syllableadjectives.txt"));
-        while(fileScan.hasNextLine())
-        {
+        while(fileScan.hasNextLine()) {
             adjs.add(fileScan.nextLine());
         }
     }
@@ -145,11 +121,9 @@ public class Generator
      * @param numnouns number of syllables for the nouns
      * @throws IOException
      */
-    public void readNounFiles(int numnouns) throws IOException
-    {
+    public void readNounFiles(int numnouns) throws IOException {
         Scanner fileScan2 = new Scanner(new File("resources/" + numnouns + "syllablenouns.txt"));
-        while(fileScan2.hasNextLine())
-        {
+        while(fileScan2.hasNextLine()) {
             nouns.add(fileScan2.nextLine());
         }
     }
@@ -158,28 +132,23 @@ public class Generator
      * reads in all verb files.
      * @throws IOException
      */
-    public void readVerbFiles() throws IOException
-    {
-        for (int i = 1; i < 5; i++)
-        {
+    public void readVerbFiles() throws IOException {
+        for (int i = 1; i < 5; i++) {
             Scanner fileScan2 = new Scanner(new File("resources/" + i + "syllableverbs.txt"));
-            while(fileScan2.hasNextLine())
-            {
+            while(fileScan2.hasNextLine()) {
                 adjs.add(fileScan2.nextLine());
             }
         }
     }
-    
+
     /**
      * Reads in the file of verbs for specific syllable.
      * @param numverbs number of syllables for the nouns
      * @throws IOException
      */
-    public void readVerbFiles(int numverbs) throws IOException
-    {
+    public void readVerbFiles(int numverbs) throws IOException {
         Scanner fileScan = new Scanner(new File("resources/" + numverbs + "syllableverbs.txt"));
-        while(fileScan.hasNextLine())
-        {
+        while(fileScan.hasNextLine()) {
             adjs.add(fileScan.nextLine());
         }
     }
@@ -188,14 +157,11 @@ public class Generator
      * Generates the band name String
      * @return the String band name
      */
-    public String generate()
-    {
-        if (isAdj == true)
-        {
+    public String generate() {
+        if (isAdj == true) {
             return adjs.get((int)(Math.random() * adjs.size())) + " " + nouns.get((int)(Math.random() * nouns.size()));
         }
-        else
-        {
+        else {
             return adjs.get((int)(Math.random() * adjs.size())) + " the " + nouns.get((int)(Math.random() * nouns.size()));
         }
     }
