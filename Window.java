@@ -4,8 +4,7 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.*;
-public class Window extends JComponent   
-{
+public class Window extends JComponent {
     static boolean clicked;
     static boolean isAdjective;
     static JFrame frameWindow;
@@ -16,21 +15,19 @@ public class Window extends JComponent
     static JComboBox numNounSyl;
     static JComboBox numAdjSyl;
     static final String[] sylOptions = {"1-4", "1", "2", "3", "4"};
-    public Window() throws IOException
-    {
+    public Window() throws IOException {
         clicked = false;
         isAdjective = true;
         gen = new Generator(isAdjective);
     }
 
-    public static void main(String[] args) throws IOException
-    {
+    public static void main(String[] args) throws IOException {
         frameWindow = new JFrame("Indie Band Name Generator");
         //frameWindow.setLayout(new BoxLayout(frameWindow.getContentPane(), BoxLayout.Y_AXIS));
         frameWindow.setLocationRelativeTo(null);
         frameWindow.setSize(new Dimension(500,310));
         frameWindow.setResizable(false);
-        Window mainWindow = new Window(); 
+        Window mainWindow = new Window();
         frameWindow.add(mainWindow);
 
         generate = new JButton("Generate");
@@ -39,8 +36,8 @@ public class Window extends JComponent
         generate.setBounds(162,170,175,50);
         mainWindow.add(generate);
 
-        numAdjSyl = new JComboBox<String>(sylOptions); 
-        numNounSyl = new JComboBox<String>(sylOptions); 
+        numAdjSyl = new JComboBox<String>(sylOptions);
+        numNounSyl = new JComboBox<String>(sylOptions);
         numAdjSyl.setEditable(true);
         numNounSyl.setEditable(true);
         JPanel wrapper = new JPanel();
@@ -75,14 +72,10 @@ public class Window extends JComponent
             });
 
         adjectives.addActionListener(new ActionListener(){
-                public void actionPerformed(ActionEvent e)
-                {
-                    if (adjectives.isSelected())
-                    {
+                public void actionPerformed(ActionEvent e) {
+                    if (adjectives.isSelected()) {
                         isAdjective = true;
-                    }
-                    else
-                    {
+                    } else {
                         isAdjective = false;
                     }
                     try {
@@ -94,14 +87,10 @@ public class Window extends JComponent
             });
 
         verbs.addActionListener(new ActionListener(){
-                public void actionPerformed(ActionEvent e) 
-                {
-                    if (verbs.isSelected())
-                    {
+                public void actionPerformed(ActionEvent e) {
+                    if (verbs.isSelected()) {
                         isAdjective = false;
-                    }
-                    else
-                    {
+                    } else {
                         isAdjective = true;
                     }
                     try {
@@ -114,15 +103,13 @@ public class Window extends JComponent
             });
 
         numAdjSyl.addActionListener(new ActionListener(){
-                public void actionPerformed(ActionEvent e) 
-                {
+                public void actionPerformed(ActionEvent e) {
                     changeSyl();
                 }
             });
 
         numNounSyl.addActionListener(new ActionListener(){
-                public void actionPerformed(ActionEvent e) 
-                {
+                public void actionPerformed(ActionEvent e) {
                     changeSyl();
                 }
             });
@@ -131,49 +118,40 @@ public class Window extends JComponent
     public static void changeSyl()
     {
         String adjChoice = (String)numAdjSyl.getEditor().getItem();
-        String nounChoice =(String)numNounSyl.getEditor().getItem(); 
-        if (adjChoice.equals("1-4") && nounChoice.equals("1-4"))
-        {
-        }
-        else if (nounChoice.equals("1-4"))
-        {
+        String nounChoice =(String)numNounSyl.getEditor().getItem();
+        if (adjChoice.equals("1-4") && nounChoice.equals("1-4")) {
+        } else if (nounChoice.equals("1-4")) {
             int numSyl = Integer.parseInt(adjChoice);
             try{
                 gen = new Generator(numSyl,0,isAdjective);
             }
             catch(Exception ex){}
-        }
-        else if(adjChoice.equals("1-4"))
-        {
+        } else if(adjChoice.equals("1-4")) {
             int numSyl = Integer.parseInt(nounChoice);
             try{
                 gen = new Generator(0,numSyl,isAdjective);
             }
             catch(Exception ex){}
-        }
-        else
-        {
+        } else {
             int numSyl = Integer.parseInt(adjChoice);
             int numSyl2 = Integer.parseInt(nounChoice);
-            try{
+            try {
                 gen = new Generator(numSyl,numSyl2,isAdjective);
-            }
-            catch(Exception ex){}
+            } catch(Exception ex){}
         }
     }
 
-    public void resetClicked()
-    {
+    public void resetClicked() {
         //System.out.println("Before notClicked " + clicked);
         clicked = false;
         frameWindow.repaint();
     }
 
-    public boolean isClicked()
-    {return clicked;}
+    public boolean isClicked() {
+		return clicked;
+	}
 
-    public void paintComponent(Graphics g)
-    {
+    public void paintComponent(Graphics g) {
         g.setColor(new Color(51,153,200));
         g.fillRect(0,0,1000,1000);
         g.setColor(Color.WHITE);
@@ -188,12 +166,9 @@ public class Window extends JComponent
         g.drawString(name, x,y);
 
         g.setFont(new Font("Helvetica", Font.BOLD, 15));
-        if (isAdjective == true)
-        {
+        if (isAdjective == true) {
             g.drawString("Adjective Syllables", 15, 195);
-        }
-        else
-        {
+        } else {
             g.drawString("Verb Syllables", 28, 195);
         }
         g.drawString("Noun Syllables", 375, 195);
