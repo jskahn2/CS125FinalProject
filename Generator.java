@@ -158,7 +158,7 @@ public class Generator {
      * @return the String band name
      */
     public String generate() {
-        if (isAdj == true) {
+        if (isAdj) {
             return adjs.get((int)(Math.random() * adjs.size())) + " " + nouns.get((int)(Math.random() * nouns.size()));
         }
         else {
